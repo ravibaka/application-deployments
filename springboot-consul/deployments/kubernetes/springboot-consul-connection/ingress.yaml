@@ -26,7 +26,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: consul-connection
+  name: springboot-consul
   namespace: dev
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
@@ -40,13 +40,13 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: consul-connection
+                name: springboot-consul
                 port:
                   number: 8088
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: consul-connection
+                name: springboot-consul
                 port:
                   number: 8088

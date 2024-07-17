@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: consul-connection
+  name: springboot-consul
   namespace: dev
 spec:
   type: NodePort
@@ -11,4 +11,4 @@ spec:
       targetPort: 8088
       name: http
   selector:
-    app: consul-connection
+    app: springboot-consul

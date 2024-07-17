@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: consul-connection
+  name: springboot-consul
   namespace: dev
   labels:
-    app: consul-connection
+    app: springboot-consul
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: consul-connection
+      app: springboot-consul
   template:
     metadata:
       labels:
-        app: consul-connection
+        app: springboot-consul
     spec:
       securityContext:
         runAsNonRoot: true
@@ -24,7 +24,7 @@ spec:
       imagePullSecrets:
         - name: registry-credentials-docker-hub
       containers:
-        - name: consul-connection
+        - name: springboot-consul
           securityContext:
             readOnlyRootFilesystem: false
             allowPrivilegeEscalation: false
