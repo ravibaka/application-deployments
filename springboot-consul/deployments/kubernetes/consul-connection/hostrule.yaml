@@ -1,0 +1,12 @@
+#apiVersion: ako.vmware.com/v1alpha1
+#kind: HostRule
+#metadata:
+#  name: consul-connection
+#  namespace: dev
+#spec:
+#  virtualhost:
+#    fqdn: consul-connection.web.local
+#    analyticsPolicy:
+#      fullClientLogs:
+#        enabled: true
+#        throttle: DISABLED

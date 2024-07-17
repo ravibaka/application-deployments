@@ -1,0 +1,52 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  annotations:
+#    cert-manager.io/cluster-issuer: letsencrypt-prod
+#  name: consul-connection
+#  namespace: dev
+#spec:
+#  ingressClassName: dev-ingress
+#  rules:
+#    - host: consul-connection.dev.local
+#      http:
+#        paths:
+#          - backend:
+#              service:
+#                name: consul-connection
+#                port:
+#                  number: 8088
+#            path: /
+#            pathType: ImplementationSpecific
+#  tls:
+#    - hosts:
+#        - consul-connection.dev.local
+#      secretName: consul-connection-tls-datacenter
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: consul-connection
+  namespace: dev
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: consul-connection.web.local
+      http:
+        paths:
+          - path: /favicon.ico
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: consul-connection
+                port:
+                  number: 8088
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: consul-connection
+                port:
+                  number: 8088

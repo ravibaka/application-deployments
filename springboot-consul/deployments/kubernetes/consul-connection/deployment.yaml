@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consul-connection
+  namespace: dev
+  labels:
+    app: consul-connection
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consul-connection
+  template:
+    metadata:
+      labels:
+        app: consul-connection
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        fsGroup: 2000
+        runAsUser: 1001
+        runAsGroup: 1001
+        supplementalGroups: [ 501 ]
+      imagePullSecrets:
+        - name: registry-credentials-docker-hub
+      containers:
+        - name: consul-connection
+          securityContext:
+            readOnlyRootFilesystem: false
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          image: ravibaka/consul-connection-local-image:dev_001
+          ports:
+            - name: http
+              containerPort: 8088
+              protocol: TCP
+          resources:
